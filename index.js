@@ -68,7 +68,7 @@ export default function entrypoint(options = {}) {
       }, null, 2));
 
       const prerenderedPages = Array.from(builder.prerendered.pages, ([src, page]) => ({
-        url: src + '/?$',
+        url: src + '/?$'.replaceAll('\\', '/'),
         // eslint-disable-next-line camelcase
         static_files: join('storage', page.file).replaceAll('\\', '/'),
         upload: join('storage', page.file).replaceAll('\\', '/'),
@@ -76,7 +76,7 @@ export default function entrypoint(options = {}) {
       }));
 
       const prerenderedAssets = Array.from(builder.prerendered.assets, ([path, {type}]) => ({
-        url: path,
+        url: path.replaceAll('\\', '/'),
         // eslint-disable-next-line camelcase
         static_files: join('storage', path).replaceAll('\\', '/'),
         upload: join('storage', path).replaceAll('\\', '/'),
@@ -86,7 +86,7 @@ export default function entrypoint(options = {}) {
       }));
 
       const prerenderedRedirects = Array.from(builder.prerendered.redirects, ([src, _]) => ({
-        url: src,
+        url: src.replaceAll('\\', '/'),
         secure: 'always',
         script: 'auto',
       }));
